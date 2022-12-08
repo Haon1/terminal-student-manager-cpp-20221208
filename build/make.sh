@@ -3,11 +3,8 @@
 declare -r NONE="\033[m"
 declare -r LIGHT_RED="\033[1;31m"
 declare -r LIGHT_GREEN="\033[1;32m"
-declare -r YELLOW="\033[1;33m"
 declare -r LIGHT_BLUE="\033[1;34m"
 declare -r PURPLE="\033[1;35m"
-declare -r WHITE="\033[1;37m"
-declare -r RED="\033[2;31m"
 
 SRC_DIR=./src
 INC_DIR=./include
