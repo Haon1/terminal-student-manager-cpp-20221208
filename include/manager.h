@@ -36,7 +36,14 @@ public:
     //判断学生是否存在
     Student *isStudentExist(string &id);
 
+    //从文本中读取数据
+    void read(string path="student.txt");
+
+    //数据写入文本
     void write(string path="student.txt");
+
+    //退出
+    void exit();
 
 private:
 

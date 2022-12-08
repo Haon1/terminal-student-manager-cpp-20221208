@@ -230,6 +230,7 @@ void Manager::sortStudent()
     {
         for(int j=0; j<size-i-1; j++)
         {
+            //取出前后两个学生学号
             int a = atoi(tmpVector[j].id.c_str());
             int b = atoi(tmpVector[j+1].id.c_str());
             if( a > b)
@@ -255,6 +256,49 @@ void Manager::sortStudent()
 }
 
 /**
+ * @brief 从文件中读取数据
+ *
+ * @param path 要写入的文件路径
+ */
+void Manager::read(string path)
+{
+    ifstream fin;
+    fin.open(path);     //in方式打开文本
+    if(!fin.is_open())  //若文本打开失败则说明文件不存在
+    {
+        ofstream fout(path);    //创建一个文件
+        fout.close();           //关闭文件退出
+        return ;
+    }
+
+    //文件数据保存缓冲区，每次保存一行数据
+    char data[128]={0};
+
+    //每次从文本中读一行数据到 缓冲区中
+    while(fin.getline(data,128))
+    {
+        string str = data;  //读出来的数据是带空格的 例如"1 1 1 1 1",需要按空格切割出来,拿出五个数据给学生对象赋值
+        vector<string> value;   //切割后的数据保存容器
+        Util::stringsplit(data,' ',value);  //以 空格 为分割符 切割一行数据
+
+        //新建学生对象并且用切割出来的数据给 成员变量赋值
+        Student stu;
+        stu.id = value[0];
+        stu.name = value[1];
+        stu.dormitory = value[2];
+        stu.score = atof(value[3].c_str());
+        stu.addr = value[4];
+
+        //把赋值好的学生对象加入到 stuVector中
+        stuVector.push_back(stu);
+        //cout << stu.id << stu.name << stu.dormitory << stu.score << stu.addr << endl;
+    }
+
+    //关闭文件
+    fin.close();
+}
+
+/**
  * @brief 数据写入文件
  * 
  * @param path 要写入的文件路径
@@ -265,23 +309,26 @@ void Manager::write(string path)
     cout << Util::title("学生信息保存");    //显示标题
 
     int i;
-    ofstream f;
-    f.open(path);
-    if(!f.is_open())
+    ofstream fout;     //out 模式文件不存在会自动创建
+    fout.open(path);   //打开文件
+    if(!fout.is_open())    //判断是否打开成功
     {
         cout << Util::tip("文件打开失败");
         goto end;
     }
 
+    //把数据写入文件
     for(i=0; i<stuVector.size(); i++)
     {
         Student stu = stuVector[i];
-        f << stu.id << " "\
-          << stu.name << " "\
-          << stu.dormitory << " "\
-          << stu.score << " "\
-          << stu.addr << " " << endl;
+        fout << stu.id << " "\
+             << stu.name << " "\
+             << stu.dormitory << " "\
+             << stu.score << " "\
+             << stu.addr << " " << endl;
     }
+    //关闭文件
+    fout.close();
 
     cout << Util::tip("保存成功");
 
@@ -290,4 +337,11 @@ end:
     //等待按下回车
     Util::pause();
 
+}
+
+//退出程序
+void Manager::exit()
+{
+    Util::clearScreen();
+    cout << "\n" << Util::title("感谢使用  再见");
 }

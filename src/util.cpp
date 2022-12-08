@@ -1,4 +1,8 @@
 #include "util.h"
+#include <sstream>
+#include <iostream>
+using namespace std;
+#include <vector>
 
 extern "C" {
     #include <stdlib.h>
@@ -38,4 +42,21 @@ string Util::tip(string text)
     tip += "\n\n";
 
     return tip;
+}
+
+/**
+ * @brief 切割字符串
+ *
+ * @param str 要切割的字符串
+ * @param split 分隔符
+ * @param value 切割后的元素保存
+ */
+void Util::stringsplit(string str,const char split,vector<string>& value)
+{
+    istringstream iss(str);    // 输入流
+    string data;            // 接收缓冲区
+    while (getline(iss, data, split))    // 以split为分隔符
+    {
+        value.push_back(data);
+    }
 }
