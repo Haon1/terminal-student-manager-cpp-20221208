@@ -1,5 +1,5 @@
 #include <iostream>
-#include <student.h>
+#include "student.h"
 
 //无参构造
 Student::Student(){}
