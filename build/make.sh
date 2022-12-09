@@ -45,7 +45,7 @@ function Purple_Msg()
 
 function Do_Make()
 {
-    g++ ${SRC_DIR}/*.cpp -I${INC_DIR} -o ${DEST}       
+    g++ ${SRC_DIR}/*.cpp -I${INC_DIR} -o ${DEST} -std=c++11
 }
 
 
