@@ -12,7 +12,11 @@ extern "C" {
 //清屏
 void Util::clearScreen()
 {
+    #ifdef _WIN32
+    system("cls");
+    #else
     system("clear");
+    #endif
 }
 
 //等待按下回车
